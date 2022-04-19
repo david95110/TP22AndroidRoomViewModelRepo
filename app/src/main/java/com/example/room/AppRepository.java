@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 
 import com.example.room.database.AppDatabase;
 import com.example.room.database.PersonneEntity;
+import com.example.room.database.TestData;
 
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -34,4 +35,14 @@ public class AppRepository {
     private LiveData<List<PersonneEntity>> getAllPersons() {
         return database.personneDao().getAll();
     }
+
+    public void addAllPersons(List<PersonneEntity> persons){
+        executor.execute(() -> database.personneDao().insertAll(persons));
+    }
+
+    public void deleteAllPersons(){
+        executor.execute(() -> database.personneDao().deleteAll());
+    }
+
+
 }
